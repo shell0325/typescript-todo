@@ -10,33 +10,32 @@ import { ITaskService } from './interface/question.service.interface';
 
 @Injectable()
 export class TaskService implements ITaskService {
-  constructor(private readonly _taskRepository: TaskRepository) { }
-  
+  constructor(private readonly _taskRepository: TaskRepository) {}
+
   //task作成処理
-  async createTask(param: createTaskRequestDto):  {
+  async createTask(param: createTaskRequestDto): Promise<{}> {
     const newTask = this._taskRepository.create(param);
     if (!newTask) throw new NotFoundException();
     const task = await this._taskRepository.save(newTask);
-    return { task };
+    return task;
   }
-  
-  //task全県取得処理
-  async getTasks():  {
+
+  //task全件取得処理
+  async getTasks(): Promise<{}> {
     const tasks = await this._taskRepository.find();
     if (!tasks) throw new NotFoundException();
     return { tasks };
   }
 
   //task1件取得処理
-  async findTask(taskId: ):  {
+  async findTask(taskId: number): Promise<{}> {
     const task = await this._taskRepository.findOne(taskId);
     if (!task) throw new NotFoundException();
-    return { task }
+    return { task };
   }
 
-
   //task更新処理
-  async updateTask(taskId: , param: updateTaskRequestDto):  {
+  async updateTask(taskId: number, param: updateTaskRequestDto): Promise<{}> {
     const origin = await this._taskRepository.findOne(taskId);
     if (!origin) throw new NotFoundException();
     const task = await this._taskRepository.save({ ...origin, ...param });
@@ -44,7 +43,7 @@ export class TaskService implements ITaskService {
   }
 
   //特定のtaskの削除
-  async deleteTask(taskId: ): Promise<DeleteResult> {
+  async deleteTask(taskId: number): Promise<DeleteResult> {
     const result = await this._taskRepository.delete(taskId);
     if (result.affected === 0) throw new NotFoundException();
     return result;

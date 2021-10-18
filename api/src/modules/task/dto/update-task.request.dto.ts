@@ -3,4 +3,5 @@ export class updateTaskRequestDto {
   @ApiProperty()
 
   @ApiProperty()
+  id:number
 }
