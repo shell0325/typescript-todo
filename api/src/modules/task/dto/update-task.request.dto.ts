@@ -1,7 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger';
 export class updateTaskRequestDto {
   @ApiProperty()
+  id: number;
 
   @ApiProperty()
-  id:number
+  title: string;
 }

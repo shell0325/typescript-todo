@@ -1,5 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { DeletedResult } from 'src/common/types/response';
+import { Task } from 'src/database/entities/task.entity';
 import { TaskRepository } from 'src/ripositories/task.repository';
 import { DeleteResult } from 'typeorm';
 import { createTaskRequestDto } from './dto/create-task.request.dto';
@@ -13,29 +14,32 @@ export class TaskService implements ITaskService {
   constructor(private readonly _taskRepository: TaskRepository) {}
 
   //task作成処理
-  async createTask(param: createTaskRequestDto): Promise<{}> {
+  async createTask(param: createTaskRequestDto): Promise<{ task: Task }> {
     const newTask = this._taskRepository.create(param);
     if (!newTask) throw new NotFoundException();
     const task = await this._taskRepository.save(newTask);
-    return task;
+    return { task };
   }
 
   //task全件取得処理
-  async getTasks(): Promise<{}> {
+  async getTasks(): Promise<{ tasks: Task[] }> {
     const tasks = await this._taskRepository.find();
     if (!tasks) throw new NotFoundException();
     return { tasks };
   }
 
   //task1件取得処理
-  async findTask(taskId: number): Promise<{}> {
+  async findTask(taskId: number): Promise<{ task: Task }> {
     const task = await this._taskRepository.findOne(taskId);
     if (!task) throw new NotFoundException();
     return { task };
   }
 
   //task更新処理
-  async updateTask(taskId: number, param: updateTaskRequestDto): Promise<{}> {
+  async updateTask(
+    taskId: number,
+    param: updateTaskRequestDto,
+  ): Promise<{ task: Task }> {
     const origin = await this._taskRepository.findOne(taskId);
     if (!origin) throw new NotFoundException();
     const task = await this._taskRepository.save({ ...origin, ...param });

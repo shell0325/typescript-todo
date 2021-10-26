@@ -4,6 +4,5 @@ import { IsNotEmpty } from 'class-validator';
 export class createTaskRequestDto {
   @IsNotEmpty()
   @ApiProperty()
-  id:number
-  name: string
-};
+  title: string;
+}
