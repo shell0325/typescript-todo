@@ -43,7 +43,7 @@ export class TaskController {
   async createTask(
     @Body() param: createTaskRequestDto,
   ): Promise<CommonResponse> {
-    let responseData: { task: Task };
+    let responseData: TaskResponseDto;
     responseData = await this._taskService.createTask(param);
     return new CreatedResponse(responseData);
   }
@@ -51,7 +51,7 @@ export class TaskController {
   @ApiExtraModels(OkResponse, TasksResponseDto)
   @ApiSuccessResponse(OkResponse, TasksResponseDto)
   async getTasks(): Promise<CommonResponse> {
-    let responseData: { tasks: Task[] };
+    let responseData: TasksResponseDto;
 
     responseData = await this._taskService.getTasks();
 
@@ -62,7 +62,7 @@ export class TaskController {
   @ApiExtraModels(OkResponse, TaskResponseDto)
   @ApiSuccessResponse(OkResponse, TaskResponseDto)
   async findTask(@Param('taskId') taskId: number): Promise<CommonResponse> {
-    let responseData: { task: Task };
+    let responseData: TaskResponseDto;
     responseData = await this._taskService.findTask(taskId);
     return new OkResponse(responseData);
   }
@@ -74,7 +74,7 @@ export class TaskController {
     @Param('taskId') taskId: number,
     @Body() param: updateTaskRequestDto,
   ): Promise<CommonResponse> {
-    let responseData: { task: Task };
+    let responseData: updateTaskRequestDto;
     responseData = await this._taskService.updateTask(taskId, param);
     return new OkResponse(responseData);
   }

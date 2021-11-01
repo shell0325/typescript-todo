@@ -14,7 +14,7 @@ export class TaskService implements ITaskService {
   constructor(private readonly _taskRepository: TaskRepository) {}
 
   //task作成処理
-  async createTask(param: createTaskRequestDto): Promise<{ task: Task }> {
+  async createTask(param: createTaskRequestDto): Promise<TaskResponseDto> {
     const newTask = this._taskRepository.create(param);
     if (!newTask) throw new NotFoundException();
     const task = await this._taskRepository.save(newTask);
@@ -22,14 +22,14 @@ export class TaskService implements ITaskService {
   }
 
   //task全件取得処理
-  async getTasks(): Promise<{ tasks: Task[] }> {
+  async getTasks(): Promise<TasksResponseDto> {
     const tasks = await this._taskRepository.find();
     if (!tasks) throw new NotFoundException();
     return { tasks };
   }
 
   //task1件取得処理
-  async findTask(taskId: number): Promise<{ task: Task }> {
+  async findTask(taskId: number): Promise<TaskResponseDto> {
     const task = await this._taskRepository.findOne(taskId);
     if (!task) throw new NotFoundException();
     return { task };
@@ -39,7 +39,7 @@ export class TaskService implements ITaskService {
   async updateTask(
     taskId: number,
     param: updateTaskRequestDto,
-  ): Promise<{ task: Task }> {
+  ): Promise<updateTaskRequestDto> {
     const origin = await this._taskRepository.findOne(taskId);
     if (!origin) throw new NotFoundException();
     const task = await this._taskRepository.save({ ...origin, ...param });

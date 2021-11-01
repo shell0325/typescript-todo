@@ -6,11 +6,11 @@ import { updateTaskRequestDto } from '../dto/update-task.request.dto';
 import { Task } from 'src/database/entities/task.entity';
 
 export interface ITaskService {
-  createTask(param: createTaskRequestDto): Promise<{ task: Task }>;
-  getTasks(): Promise<{ tasks: Task[] }>;
-  findTask(taskId: number): Promise<{ task: Task }>;
+  createTask(param: createTaskRequestDto): Promise<TaskResponseDto>;
+  getTasks(): Promise<TasksResponseDto>;
+  findTask(taskId: number): Promise<TaskResponseDto>;
   updateTask(
     taskId: number,
     param: updateTaskRequestDto,
-  ): Promise<{ task: Task }>;
+  ): Promise<updateTaskRequestDto>;
 }
