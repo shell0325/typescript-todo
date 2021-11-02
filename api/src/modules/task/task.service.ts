@@ -39,7 +39,7 @@ export class TaskService implements ITaskService {
   async updateTask(
     taskId: number,
     param: updateTaskRequestDto,
-  ): Promise<updateTaskRequestDto> {
+  ): Promise<TaskResponseDto> {
     const origin = await this._taskRepository.findOne(taskId);
     if (!origin) throw new NotFoundException();
     const task = await this._taskRepository.save({ ...origin, ...param });

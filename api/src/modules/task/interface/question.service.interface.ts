@@ -12,5 +12,5 @@ export interface ITaskService {
   updateTask(
     taskId: number,
     param: updateTaskRequestDto,
-  ): Promise<updateTaskRequestDto>;
+  ): Promise<TaskResponseDto>;
 }

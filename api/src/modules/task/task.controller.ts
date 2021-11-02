@@ -74,7 +74,7 @@ export class TaskController {
     @Param('taskId') taskId: number,
     @Body() param: updateTaskRequestDto,
   ): Promise<CommonResponse> {
-    let responseData: updateTaskRequestDto;
+    let responseData: TaskResponseDto;
     responseData = await this._taskService.updateTask(taskId, param);
     return new OkResponse(responseData);
   }

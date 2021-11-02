@@ -3,7 +3,8 @@ import { Task } from 'src/database/entities/task.entity';
 
 export class updateTaskRequestDto {
   @ApiProperty()
-  task:Task
+  id: number;
 
-  // @ApiProperty()
+  @ApiProperty()
+  title: string;
 }
